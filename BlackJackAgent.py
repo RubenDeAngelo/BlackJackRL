@@ -15,6 +15,7 @@ env = gym.make("Blackjack-v1", sab=True)
 class BlackjackAgent:
     def __init__(
         self,
+        env,
         learning_rate: float,
         initial_epsilon: float,
         epsilon_decay: float,
@@ -31,7 +32,8 @@ class BlackjackAgent:
             final_epsilon: The final epsilon value
             discount_factor: The discount factor for computing the Q-value
         """
-        self.q_values = defaultdict(lambda: np.zeros(env.action_space.n))
+        self.env = env
+        self.q_values = defaultdict(lambda: np.zeros(self.env.action_space.n))
 
         self.lr = learning_rate
         self.discount_factor = discount_factor
@@ -49,7 +51,7 @@ class BlackjackAgent:
         """
         # with probability epsilon return a random action to explore the environment
         if np.random.random() < self.epsilon:
-            return env.action_space.sample()
+            return self.env.action_space.sample()
 
         # with probability (1 - epsilon) act greedily (exploit)
         else:
@@ -75,4 +77,4 @@ class BlackjackAgent:
         self.training_error.append(temporal_difference)
 
     def decay_epsilon(self):
-        self.epsilon = max(self.final_epsilon, self.epsilon - epsilon_decay)
+        self.epsilon = max(self.final_epsilon, self.epsilon - self.epsilon_decay)
