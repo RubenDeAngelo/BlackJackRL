@@ -11,21 +11,23 @@ import gymnasium as gym
 # Note: We are going to follow the rules from Sutton & Barto.
 # Other versions of the game can be found below for you to experiment.
 from BlackJackAgent import BlackjackAgent
+from FiniteDeck.FiniteDeckBlackjackEnv import FiniteDeckBlackjackEnv
 from Visualize_Grid import visualize_grid
 from Visualize_Rate import visualize_rate
 
 train = True
 if train:
-    env = gym.make("Blackjack-v1", sab=True)
+    env = FiniteDeckBlackjackEnv(number_of_decks=2)
 
     # reset the environment to get the first observation
     done = False
-    observation, info = env.reset()
+    observation = env.reset()
+
 
 
     # hyperparameters
-    learning_rate = 0.01
-    n_episodes = 1_000_00
+    learning_rate = 0.001
+    n_episodes = 1_000_000
     start_epsilon = 1.0
     epsilon_decay = start_epsilon / (n_episodes / 2)  # reduce the exploration over time
     final_epsilon = 0.1
@@ -56,13 +58,15 @@ if train:
             obs = next_obs
 
         agent.decay_epsilon()
-    with open("environment_agent.pkl", "wb") as f:
+    with open("environment_agent_finite_deck.pkl", "wb") as f:
         pickle.dump(env, f)
         pickle.dump(agent, f)
 else:
-    with open("environment_agent.pkl", "rb") as f:
+    with open("environment_agent_finite_deck.pkl", "rb") as f:
         env = pickle.load(f)
         agent = pickle.load(f)
+
+
 
 visualize_rate(env = env, agent = agent, rolling_length=10000)
 visualize_grid(agent)

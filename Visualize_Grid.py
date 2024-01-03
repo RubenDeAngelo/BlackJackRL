@@ -87,7 +87,7 @@ def create_plots(value_grid, policy_grid, title: str):
 
 
 # state values & policy with usable ace (ace counts as 11)
-def visualize_grid(agent = None ):
+def visualize_grid(agent = None):
     value_grid, policy_grid = create_grids(agent, usable_ace=True)
     fig1 = create_plots(value_grid, policy_grid, title="With usable ace")
     plt.show()
