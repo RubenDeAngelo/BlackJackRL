@@ -11,10 +11,12 @@ import gymnasium as gym
 # Note: We are going to follow the rules from Sutton & Barto.
 # Other versions of the game can be found below for you to experiment.
 from BlackJackAgent import BlackjackAgent
-from Visualize_Grid import visualize_grid
-from Visualize_Rate import visualize_rate
+from Visualize.Q_Value_Analysis import identify_and_visualize_critical_states
+from Visualize.Visualize_Grid import visualize_grid
+from Visualize.Visualize_Rate import visualize_rate
 
-train = True
+train = False
+
 if train:
     env = gym.make("Blackjack-v1", sab=True)
 
@@ -25,8 +27,8 @@ if train:
 
     # hyperparameters
     learning_rate = 0.01
-    n_episodes = 1_000_00
-    start_epsilon = 1.0
+    n_episodes = 1_000_000
+    start_epsilon = 1
     epsilon_decay = start_epsilon / (n_episodes / 2)  # reduce the exploration over time
     final_epsilon = 0.1
 
@@ -42,6 +44,8 @@ if train:
     for episode in tqdm(range(n_episodes)):
         obs, info = env.reset()
         done = False
+
+        agent.learning_rate_decay(learning_rate, episode)
 
         # play one episode
         while not done:
@@ -64,5 +68,6 @@ else:
         env = pickle.load(f)
         agent = pickle.load(f)
 
+#identify_and_visualize_critical_states(agent)
 visualize_rate(env = env, agent = agent, rolling_length=10000)
 visualize_grid(agent)

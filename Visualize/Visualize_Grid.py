@@ -15,7 +15,7 @@ def create_grids(agent, usable_ace=False):
     state_value = defaultdict(float)
     policy = defaultdict(int)
     for obs, action_values in agent.q_values.items():
-        state_value[obs] = float(np.max(action_values))
+        state_value[obs] = float(action_values[0]-action_values[1])
         policy[obs] = int(np.argmax(action_values))
 
     player_count, dealer_count = np.meshgrid(

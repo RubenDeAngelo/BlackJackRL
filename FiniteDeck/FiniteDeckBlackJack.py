@@ -12,8 +12,8 @@ import gymnasium as gym
 # Other versions of the game can be found below for you to experiment.
 from BlackJackAgent import BlackjackAgent
 from FiniteDeck.FiniteDeckBlackjackEnv import FiniteDeckBlackjackEnv
-from Visualize_Grid import visualize_grid
-from Visualize_Rate import visualize_rate
+from Visualize.Visualize_Grid import visualize_grid
+from Visualize.Visualize_Rate import visualize_rate
 
 train = True
 if train:
@@ -26,8 +26,8 @@ if train:
 
 
     # hyperparameters
-    learning_rate = 0.001
-    n_episodes = 1_000_000
+    learning_rate = 0.0005
+    n_episodes = 2_000_000
     start_epsilon = 1.0
     epsilon_decay = start_epsilon / (n_episodes / 2)  # reduce the exploration over time
     final_epsilon = 0.1
