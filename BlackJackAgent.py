@@ -86,4 +86,4 @@ class BlackjackAgent:
 
 
 def learning_reate_decay_function(learning_rate, episode):
-    return learning_rate / (1 + episode * 0.001)
+    return learning_rate #/ (1 + episode * 0.001)

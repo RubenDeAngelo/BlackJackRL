@@ -1,12 +1,12 @@
 TODO:
     - Different evaluations:
-        - Monte Carlo Evaluation vs Q learning
+        - Monte Carlo Evaluation vs Q learning, Johannes
         - Different epsilon values
     - Decreasing learning rate vs non-decreasing
-    - Optimal policy visualize in the grid
-    - Visualize difference beteween hit or stick in the q-values for stick vs hit
-    - Heatmap how many times a state was vistited
-    - Show q-value of problematic states
+    - Visualize difference beteween hit or stick in the q-values for stick vs hit heatmap, Johannes
+    - Visualize the states that are not optimal with a red outline, Johannes
+    - Heatmap how many times a state was vistited, Nicolas
+    - Show q-value of problematic states, Nicolas
 
-What we have done:
+DONE:
     - decreasing learning rate

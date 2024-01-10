@@ -6,7 +6,6 @@ from tqdm import tqdm
 
 import gymnasium as gym
 
-
 # Let's start by creating the blackjack environment.
 # Note: We are going to follow the rules from Sutton & Barto.
 # Other versions of the game can be found below for you to experiment.
@@ -24,7 +23,6 @@ if train:
     done = False
     observation, info = env.reset()
 
-    
     n_episodes = 100_000
     start_alpha = 0.005
     alpha_decay = 0.000005
@@ -34,7 +32,7 @@ if train:
     final_epsilon = 100.0
 
     agent = BlackjackAgent(
-        env= env,
+        env=env,
         learning_rate=learning_rate,
         initial_epsilon=start_epsilon,
         epsilon_decay=epsilon_decay,
@@ -69,6 +67,6 @@ else:
         env = pickle.load(f)
         agent = pickle.load(f)
 
-#identify_and_visualize_critical_states(agent)
-visualize_rate(env = env, agent = agent, rolling_length=10000)
+# identify_and_visualize_critical_states(agent)
+visualize_rate(env=env, agent=agent, rolling_length=10000)
 visualize_grid(agent)

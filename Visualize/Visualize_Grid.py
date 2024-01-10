@@ -8,6 +8,9 @@ from tqdm import tqdm
 
 import gymnasium as gym
 
+from optimal_policy import optimal_policy_matrix
+
+
 def create_grids(agent, usable_ace=False):
     """Create value and policy grid given an agent."""
     # convert our state-action values to state values
@@ -41,58 +44,81 @@ def create_grids(agent, usable_ace=False):
     return value_grid, policy_grid
 
 
-def create_plots(value_grid, policy_grid, title: str):
-    """Creates a plot using a value and policy grid."""
-    # create a new figure with 2 subplots (left: state values, right: policy)
+def create_plots(value_grid, policy_grid, diff_indices, title: str):
+    """Creates a plot using a value and policy grid with highlighted differences."""
     player_count, dealer_count, value = value_grid
-    fig = plt.figure(figsize=plt.figaspect(0.4))
-    fig.suptitle(title, fontsize=16)
 
-    # plot the state values
-    ax1 = fig.add_subplot(1, 2, 1, projection="3d")
-    ax1.plot_surface(
-        player_count,
-        dealer_count,
+    fig, axs = plt.subplots(1, 2, figsize=(12, 6))
+
+    # Plot the state values as a heatmap with numeric annotations
+    ax1 = axs[0]
+    heatmap = ax1.imshow(
         value,
-        rstride=1,
-        cstride=1,
-        cmap="viridis",
-        edgecolor="none",
+        cmap='viridis',
+        origin='lower',  # Ensure correct orientation
+        extent=[11.5, 21.5, 0.5, 10.5],  # Adjust extent to match the other grid
+        aspect='auto'  # Adjust aspect to fit the grid cells properly
     )
-    plt.xticks(range(12, 22), range(12, 22))
-    plt.yticks(range(1, 11), ["A"] + list(range(2, 11)))
+    fig.colorbar(heatmap, ax=ax1)  # Add color bar for reference
     ax1.set_title(f"State values: {title}")
     ax1.set_xlabel("Player sum")
     ax1.set_ylabel("Dealer showing")
-    ax1.zaxis.set_rotate_label(False)
-    ax1.set_zlabel("Value", fontsize=14, rotation=90)
-    ax1.view_init(20, 220)
+    ax1.set_xticks(np.arange(12, 22))
+    ax1.set_yticks(np.arange(1, 11))
+    ax1.set_xticklabels(np.arange(12, 22))
+    ax1.set_yticklabels(np.arange(1, 11))  # Update y-tick labels
 
-    # plot the policy
-    fig.add_subplot(1, 2, 2)
-    ax2 = sns.heatmap(policy_grid, linewidth=0, annot=True, cmap="Accent_r", cbar=False)
+    # Annotate each cell with the corresponding state value at the center
+    for i in range(value.shape[0]):
+        for j in range(value.shape[1]):
+            ax1.text(j + 12, i + 1, f'{value[i, j]:.2f}', ha='center', va='center', color='black', fontsize=8)
+
+    # Plot the policy with highlighting differences
+    ax2 = axs[1]
+    sns.heatmap(policy_grid, linewidth=0.5, annot=True, cmap="Accent_r", cbar=False, ax=ax2)
+    for idx in diff_indices:
+        ax2.add_patch(plt.Rectangle((idx[1], idx[0]), 1, 1, fill=False, edgecolor='red', lw=3))
     ax2.set_title(f"Policy: {title}")
     ax2.set_xlabel("Player sum")
     ax2.set_ylabel("Dealer showing")
     ax2.set_xticklabels(range(12, 22))
     ax2.set_yticklabels(["A"] + list(range(2, 11)), fontsize=12)
 
-    # add a legend
+    # Add a legend
     legend_elements = [
         Patch(facecolor="lightgreen", edgecolor="black", label="Hit"),
-        Patch(facecolor="grey", edgecolor="black", label="Stick"),
+        Patch(facecolor="grey", edgecolor="black", label="Stand"),
     ]
     ax2.legend(handles=legend_elements, bbox_to_anchor=(1.3, 1))
-    return fig
+
+    plt.tight_layout()
+    plt.show()
+
+
+
+
+
 
 
 # state values & policy with usable ace (ace counts as 11)
 def visualize_grid(agent = None):
+    usable_ace_matrix = optimal_policy_matrix(usable_ace=True)
+
+
     value_grid, policy_grid = create_grids(agent, usable_ace=True)
-    fig1 = create_plots(value_grid, policy_grid, title="With usable ace")
-    plt.show()
+    diff_indicies = find_policy_differences(policy_grid, usable_ace_matrix)
+    create_plots(value_grid, policy_grid,diff_indicies, title="With usable ace")
+
 
     # state values & policy without usable ace (ace counts as 1)
     value_grid, policy_grid = create_grids(agent, usable_ace=False)
-    fig2 = create_plots(value_grid, policy_grid, title="Without usable ace")
-    plt.show()
+    no_usable_ace_matrix = optimal_policy_matrix(usable_ace=False)
+    diff_indicies = find_policy_differences(policy_grid, no_usable_ace_matrix)
+    create_plots(value_grid, policy_grid,diff_indicies, title="Without usable ace")
+
+
+def find_policy_differences(custom_policy_grid, optimal_policy_grid):
+    """Find indices where the policy differs between two policy grids."""
+    differences = (custom_policy_grid != optimal_policy_grid)
+    diff_indices = np.argwhere(differences)
+    return diff_indices

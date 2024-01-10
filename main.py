@@ -26,8 +26,8 @@ if train:
 
 
     # hyperparameters
-    learning_rate = 0.01
-    n_episodes = 1_000_000
+    learning_rate = 0.001
+    n_episodes = 3_000_000
     start_epsilon = 1
     epsilon_decay = start_epsilon / (n_episodes / 2)  # reduce the exploration over time
     final_epsilon = 0.1
