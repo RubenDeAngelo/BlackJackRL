@@ -79,3 +79,6 @@ for episode in tqdm(range(n_episodes)):
     agent.learning_rate_decay(episode, 1)
     agent1.decay_epsilon(episode)
     agent1.learning_rate_decay(episode, 1)
+
+plt.plot(performance)
+plt.plot(performance1)
