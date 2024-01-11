@@ -10,7 +10,7 @@ epsilon_decay = start_epsilon / (n_episodes / 2)
 final_epsilon = 100.0
 test_episodes = 10000
 
-agent = BlackjackAgent(
+agent = BlackjackAgentVS(
     initial_alpha=start_alpha,
     alpha_decay=alpha_decay,
     final_alpha=final_alpha,
@@ -19,7 +19,7 @@ agent = BlackjackAgent(
     final_epsilon=final_epsilon,
 )
 
-agent1 = BlackjackAgent(
+agent1 = BlackjackAgentVS(
     initial_alpha=0.0000001,
     alpha_decay=alpha_decay,
     final_alpha=0.0000001,
