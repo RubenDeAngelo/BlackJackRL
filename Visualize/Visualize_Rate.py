@@ -1,10 +1,10 @@
 import numpy as np
 from matplotlib import pyplot as plt
 
-from BlackJackAgent import learning_reate_decay_function
+from BlackJackAgent import learning_rate_decay_function
 
 
-def visualize_rate(env=None, agent=None, rolling_length=500):
+def visualize_rate(initial_lr, env=None, agent=None, rolling_length=500):
     fig, axs = plt.subplots(ncols=4, figsize=(16, 5))
 
     axs[0].set_title("Episode rewards")
@@ -30,7 +30,7 @@ def visualize_rate(env=None, agent=None, rolling_length=500):
 
     axs[3].set_title("Learning Rate")
     decayed_learning_rate = [
-        learning_reate_decay_function(agent.learning_rate, episode) for episode in range(len(env.return_queue))
+        learning_rate_decay_function(initial_lr, episode) for episode in range(len(env.return_queue))
     ]
     axs[3].plot(range(len(decayed_learning_rate)), decayed_learning_rate)
 

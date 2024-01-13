@@ -24,7 +24,7 @@ class BlackjackAgent:
         self.env = env
         self.q_values = {}  # Regular dictionary instead of defaultdict
 
-        self.lr = learning_rate
+        self.learning_rate = learning_rate
         self.discount_factor = discount_factor
 
         self.epsilon = initial_epsilon
@@ -62,7 +62,7 @@ class BlackjackAgent:
         )
 
         self.q_values.setdefault(obs, np.zeros(self.env.action_space.n))
-        self.q_values[obs][action] += self.lr * temporal_difference
+        self.q_values[obs][action] += self.learning_rate * temporal_difference
         self.training_error.append(temporal_difference)
 
     def update_learning_rate(self, new_learning_rate):
@@ -73,7 +73,7 @@ class BlackjackAgent:
 
     def learning_rate_decay(self, learning_rate, episode):
         # Calculate the decayed learning rate for this episode
-        decayed_learning_rate = learning_reate_decay_function(learning_rate, episode)
+        decayed_learning_rate = learning_rate_decay_function(self.learning_rate, episode)
 
         # Set the minimum learning rate (e.g., 1e-5 or 0.00001)
         min_learning_rate = 1e-5
@@ -85,5 +85,5 @@ class BlackjackAgent:
         self.update_learning_rate(decayed_learning_rate)
 
 
-def learning_reate_decay_function(learning_rate, episode):
-    return learning_rate #/ (1 + episode * 0.001)
+def learning_rate_decay_function(learning_rate, episode):
+    return learning_rate / (1 + episode * 0.001)

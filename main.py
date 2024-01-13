@@ -15,7 +15,8 @@ from Visualize.Q_Value_Analysis import identify_and_visualize_critical_states
 from Visualize.Visualize_Grid import visualize_grid
 from Visualize.Visualize_Rate import visualize_rate
 
-train = False
+train = True
+
 
 if train:
     env = gym.make("Blackjack-v1", sab=True)
@@ -27,7 +28,7 @@ if train:
 
     # hyperparameters
     learning_rate = 0.001
-    n_episodes = 3_000_000
+    n_episodes = 1_000_00
     start_epsilon = 1
     epsilon_decay = start_epsilon / (n_episodes / 2)  # reduce the exploration over time
     final_epsilon = 0.1
@@ -45,8 +46,6 @@ if train:
         obs, info = env.reset()
         done = False
 
-        agent.learning_rate_decay(learning_rate, episode)
-
         # play one episode
         while not done:
             action = agent.get_action(obs)
@@ -58,7 +57,7 @@ if train:
             # update if the environment is done and the current obs
             done = terminated or truncated
             obs = next_obs
-
+        agent.learning_rate_decay(learning_rate, episode)
         agent.decay_epsilon()
     with open("environment_agent.pkl", "wb") as f:
         pickle.dump(env, f)
@@ -69,5 +68,5 @@ else:
         agent = pickle.load(f)
 
 #identify_and_visualize_critical_states(agent)
-visualize_rate(env = env, agent = agent, rolling_length=10000)
+visualize_rate(learning_rate, env = env, agent = agent, rolling_length=5000)
 visualize_grid(agent)

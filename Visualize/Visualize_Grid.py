@@ -4,11 +4,8 @@ import matplotlib.pyplot as plt
 import numpy as np
 import seaborn as sns
 from matplotlib.patches import Patch
-from tqdm import tqdm
 
-import gymnasium as gym
-
-from optimal_policy import optimal_policy_matrix
+from Visualize.optimal_policy import optimal_policy_matrix
 
 
 def create_grids(agent, usable_ace=False):
