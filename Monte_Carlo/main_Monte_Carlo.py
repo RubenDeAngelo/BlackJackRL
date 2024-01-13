@@ -14,7 +14,7 @@ train = True
 if train:
 
     learning_rate = 0.001
-    n_episodes = 1_000_00
+    n_episodes = 1_000_000
     start_epsilon = 1
     epsilon_decay = start_epsilon / (n_episodes / 2)
     final_epsilon = 0.1
