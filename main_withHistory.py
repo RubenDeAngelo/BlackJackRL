@@ -10,7 +10,6 @@ import gymnasium as gym
 # Note: We are going to follow the rules from Sutton & Barto.
 # Other versions of the game can be found below for you to experiment.
 from BlackJackAgent import BlackjackAgent
-from Visualize.Q_Value_Analysis import identify_and_visualize_critical_states
 from Visualize.Visualize_Grid import visualize_grid
 from Visualize.Visualize_Rate import visualize_rate
 
