@@ -5,7 +5,7 @@ from matplotlib.ticker import MaxNLocator, ScalarFormatter
 Visualization of the rewards, erorrs and episode length
 """
 
-def visualize_rate(env=None, agent=None, rolling_length=500):
+def visualize_rate(env=None , agent=None, rolling_length=500):
     fig, axs = plt.subplots(ncols=3, figsize=(16, 5))
     fontsize = 20
     labelsize = 10.5

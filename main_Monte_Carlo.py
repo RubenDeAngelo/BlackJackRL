@@ -63,5 +63,5 @@ def main_monte_carlo(
     return learning_rate, env, agent, n_episodes
 
 learning_rate, env, agent, n_episodes = main_monte_carlo()
-visualize_rate(learning_rate, env=env, agent=agent, rolling_length=5000)
+visualize_rate( env=env, agent=agent, rolling_length=5000)
 visualize_grid(agent,episode_number= n_episodes)

@@ -18,7 +18,7 @@ visualized.
 
 
 def main(
-        train: bool = False,
+        train: bool = True,
         learning_rate: float = 0.001,
         n_episodes: int = 1_000_00,
         start_epsilon: float = 1,
@@ -73,5 +73,5 @@ def main(
 
 
 learning_rate, env, agent, n_episodes = main()
-visualize_rate(learning_rate, env=env, agent=agent, rolling_length=10000)
+visualize_rate( env=env, agent=agent, rolling_length=10000)
 visualize_grid(agent, episode_number=n_episodes)
