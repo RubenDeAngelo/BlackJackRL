@@ -16,7 +16,7 @@ def visualize_rate(initial_lr, env=None, agent=None, rolling_length=500):
             / rolling_length
     )
     axs[0].plot(range(len(reward_moving_average)), reward_moving_average)
-    axs[0].tick_params(axis='both', which='major', labelsize=labelsize)
+    axs[0].tick_params(axis='both', which='major', labelsize=labelsize-1)
 
     axs[1].set_title("Episode lengths", fontsize=fontsize)
     length_moving_average = (
@@ -25,7 +25,7 @@ def visualize_rate(initial_lr, env=None, agent=None, rolling_length=500):
     )[0:-10000]
 
     axs[1].plot(range(len(length_moving_average)), length_moving_average)
-    axs[1].tick_params(axis='both', which='major', labelsize=labelsize)
+    axs[1].tick_params(axis='both', which='major', labelsize=labelsize-1)
 
     axs[2].set_title("Training Error", fontsize=fontsize)
     training_error_moving_average = (
@@ -33,7 +33,7 @@ def visualize_rate(initial_lr, env=None, agent=None, rolling_length=500):
             / rolling_length
     )
     axs[2].plot(range(len(training_error_moving_average)), training_error_moving_average)
-    axs[2].tick_params(axis='both', which='major', labelsize=labelsize)
+    axs[2].tick_params(axis='both', which='major', labelsize=labelsize-1)
 
     # Ensure integer ticks on x-axes
     for ax in axs:

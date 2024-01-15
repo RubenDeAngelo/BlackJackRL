@@ -12,7 +12,7 @@ from Visualize.Visualize_Rate import visualize_rate
 from BlackJackAgent import BlackjackAgent  # Assuming you have this module
 
 def main(
-    train: bool = True,
+    train: bool = False,
     learning_rate: float = 0.001,
     n_episodes: int = 1_000_00,
     start_epsilon: float = 1,
