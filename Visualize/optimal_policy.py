@@ -1,6 +1,8 @@
 import numpy as np
 
-
+"""
+computes the optimal policy
+"""
 def optimal_policy_matrix(usable_ace=False):
     rows, cols = 10, 10  # Dealer card sum: 1-10, Player card sum: 12-21
     policy_matrix = np.zeros((rows, cols), dtype=int)

@@ -2,7 +2,9 @@ import numpy as np
 
 from Learning_rate_decay_function import learning_rate_decay_function
 
-
+"""
+This class is implements the Black Jack agent, which is trained with temporal difference 
+"""
 class BlackjackAgent:
     def __init__(
             self,
@@ -13,16 +15,7 @@ class BlackjackAgent:
             final_epsilon: float,
             discount_factor: float = 0.95,
     ):
-        """Initialize a Reinforcement Learning agent with an empty dictionary
-        of state-action values (q_values), a learning rate and an epsilon.
 
-        Args:
-            learning_rate: The learning rate
-            initial_epsilon: The initial epsilon value
-            epsilon_decay: The decay for epsilon
-            final_epsilon: The final epsilon value
-            discount_factor: The discount factor for computing the Q-value
-        """
         self.env = env
         self.q_values = {}  # Regular dictionary instead of defaultdict
 

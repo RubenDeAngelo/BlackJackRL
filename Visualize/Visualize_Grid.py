@@ -7,6 +7,9 @@ from matplotlib.patches import Patch
 
 from Visualize.optimal_policy import optimal_policy_matrix
 
+"""
+Visualization of the state values and policy
+"""
 
 def create_grids(agent, usable_ace=False):
     """Create value and policy grid given an agent."""

@@ -4,7 +4,9 @@ import numpy as np
 
 from BlackJackAgent import learning_rate_decay_function
 
-
+"""
+This class is implements the Black Jack agent, which is trained with Monte Carlo
+"""
 class BlackjackAgent:
     def __init__(
             self,
