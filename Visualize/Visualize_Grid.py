@@ -50,8 +50,8 @@ def create_plots(value_grid, policy_grid, diff_indices, title: str, episode_numb
     ax1 = axs[0]
     sns.heatmap(value, annot=True, fmt=".2f", cmap='viridis', cbar=True, ax=ax1,
                 annot_kws={"size": fontsize - 5})  # Adjust size of the values in the heatmap cells
-    ax1.set_xticklabels(range(12, 22)[::-1], fontsize=fontsize)
-    ax1.set_yticklabels(["A"] + list(range(2, 11))[::-1], fontsize=fontsize)
+    ax1.set_xticklabels(range(12, 22)[::1], fontsize=fontsize)
+    ax1.set_yticklabels(["A"] + list(range(2, 11))[::1], fontsize=fontsize)
     ax1.set_title(f"State values: {title}")
     ax1.set_xlabel("Player sum")
     ax1.set_ylabel("Dealer showing")
@@ -63,8 +63,8 @@ def create_plots(value_grid, policy_grid, diff_indices, title: str, episode_numb
     for idx in diff_indices:
         ax2.add_patch(plt.Rectangle((idx[1], idx[0]), 1, 1, fill=False, edgecolor='red', lw=3))
     ax2.set_title(f"Policy: {title}")
-    ax2.set_yticklabels(["A"] + list(range(2, 11))[::-1], fontsize=fontsize)
-    ax2.set_xticklabels(list(range(12, 22))[::-1], fontsize=fontsize)
+    ax2.set_yticklabels(["A"] + list(range(2, 11))[::1], fontsize=fontsize)
+    ax2.set_xticklabels(list(range(12, 22))[::1], fontsize=fontsize)
 
     legend_elements = [
         Patch(facecolor="lightgreen", edgecolor="black", label="Hit"),

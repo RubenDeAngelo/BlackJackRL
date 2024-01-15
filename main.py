@@ -12,9 +12,9 @@ from Visualize.Visualize_Rate import visualize_rate
 from BlackJackAgent import BlackjackAgent  # Assuming you have this module
 
 def main(
-    train: bool = False,
+    train: bool = True,
     learning_rate: float = 0.001,
-    n_episodes: int = 5_000_000,
+    n_episodes: int = 1_000_00,
     start_epsilon: float = 1,
     final_epsilon: float = 0.1,
     tracked_states: List[Tuple[int, int, bool]] = None
@@ -66,7 +66,7 @@ def main(
             pickle.dump(agent, f)
 
     else:
-        with open("environment_agent_5mio_no_lrDecay.pkl", "rb") as f:
+        with open("environment_agent.pkl","rb") as f:
             env = pickle.load(f)
             agent = pickle.load(f)
     if tracked_states:
@@ -75,5 +75,5 @@ def main(
         return learning_rate, env, agent, n_episodes
 
 learning_rate, env, agent, n_episodes = main()
-#visualize_rate(learning_rate, env=env, agent=agent, rolling_length=10000)
+visualize_rate(learning_rate, env=env, agent=agent, rolling_length=10000)
 visualize_grid(agent,episode_number= n_episodes)

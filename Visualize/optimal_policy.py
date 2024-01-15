@@ -23,13 +23,14 @@ def optimal_policy_matrix(usable_ace=False):
 
             # No usable Ace case
             else:
+                if player_sum == 17:
+                    break
                 if player_sum <= 16 and (dealer_sum == 1 or dealer_sum > 6):
                     policy_matrix[
                         dealer_sum - 1, player_sum - 12] = 1  # Stand if player's sum is 11 or less, or 21 or more
                 if player_sum == 12 and dealer_sum in [2, 3]:
                     policy_matrix[dealer_sum - 1, player_sum - 12] = 1  # Hit if dealer's sum is 7 or more
-                if dealer_sum == 10 and player_sum == 16:
-                    policy_matrix[dealer_sum - 1, player_sum - 12] = 0  # Stand otherwise
+
 
     return policy_matrix
 
