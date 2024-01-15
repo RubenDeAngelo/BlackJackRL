@@ -2,6 +2,8 @@ from typing import List, Tuple
 from collections import deque
 import numpy as np
 
+from BlackJackAgent import learning_rate_decay_function
+
 
 class BlackjackAgent:
     def __init__(
@@ -54,5 +56,4 @@ class BlackjackAgent:
             self.q_values[obs][action] += self.learning_rate * (returns - self.q_values[obs][action])
             self.training_error.append(abs(returns - self.q_values[obs][action]))
 
-def learning_rate_decay_function(learning_rate, episode):
-    return learning_rate / (1 + episode * 0.001)
+

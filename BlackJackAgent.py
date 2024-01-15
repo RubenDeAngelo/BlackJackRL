@@ -1,5 +1,7 @@
 import numpy as np
 
+from Learning_rate_decay_function import learning_rate_decay_function
+
 
 class BlackjackAgent:
     def __init__(
@@ -84,6 +86,3 @@ class BlackjackAgent:
         # Set the agent's learning rate for this episode
         self.update_learning_rate(decayed_learning_rate)
 
-
-def learning_rate_decay_function(learning_rate, episode):
-    return learning_rate / (1 + episode * 0.001)

@@ -1,12 +1,8 @@
 TODO:
-    - Different evaluations:
-        - Monte Carlo Evaluation vs Q learning, Johannes
-        - Different epsilon values
-    - Decreasing learning rate vs non-decreasing
-    - Visualize difference beteween hit or stick in the q-values for stick vs hit heatmap, Johannes
-    - Visualize the states that are not optimal with a red outline, Johannes
-    - Heatmap how many times a state was vistited, Nicolas
-    - Show q-value of problematic states, Nicolas
-
-DONE:
-    - decreasing learning rate
+  - bilder mit beschriftung, Nicolas nach dem ich sie eingefügt habe in overleaf
+  - Zahlen aus der heatmap, Johannes
+  - Q-learning vs TD, Johannes
+  - 100000 vs 5000000 visualisierung heatmap, Johannes
+  - bilder einfügen, Micolas und johannes
+  - Monte carlo error function., Nicolas
+  :)
