@@ -1,3 +1,4 @@
+#create a tester to evaluate the agents during training
 class tester:
     def get_action(self, obs: tuple[int, int, bool], q_values) -> int:
         return int(np.argmax(q_values[obs]))
@@ -5,17 +6,20 @@ class tester:
 
 tester = tester()
 
-# env = gym.wrappers.RecordEpisodeStatistics(env, deque_size=n_episodes)
+#create arrays to store the agents performance
+
 env = gym.make("Blackjack-v1", sab=True)
 performance = []
 performance1 = []
+
+#train the agents
 
 for episode in tqdm(range(n_episodes)):
     obs, info = env.reset()
     done = False
     episode_data = []
 
-    # test the agents every n steps
+    # test the agents every 100000 steps
 
     if episode % 100_000 == 0:
         rewards = []
@@ -51,7 +55,7 @@ for episode in tqdm(range(n_episodes)):
         training_reward1 = np.sum(rewards1) / test_episodes
         performance1.append(training_reward1)
 
-    # play one episode
+    # play one episode with 1st agent 
 
     while not done:
         action = agent.get_action(obs)
@@ -67,6 +71,8 @@ for episode in tqdm(range(n_episodes)):
     obs, info = env.reset()
     done = False
 
+    # play one episode with 2nd agent 
+
     while not done:
         action = agent1.get_action(obs)
         next_obs, reward, terminated, truncated, info = env.step(action)
@@ -78,6 +84,8 @@ for episode in tqdm(range(n_episodes)):
         done = terminated or truncated
         obs = next_obs
 
+    #decay parameters
+    
     agent.decay_epsilon(episode)
     agent.learning_rate_decay(episode, 1)
     agent1.decay_epsilon()
