@@ -6,6 +6,8 @@ class tester:
 
 tester = tester()
 
+#create arrays to store the agents performance
+
 env = gym.make("Blackjack-v1", sab=True)
 performance = []
 performance1 = []
